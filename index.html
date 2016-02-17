@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" href="assets/css/reset.css">
+		<link rel="stylesheet" href="assets/jquery-ui-1.11.4/jquery-ui.min.css">
+		<link rel="stylesheet" href="assets/jquery-ui-1.11.4/jquery-ui.theme.min.css">
+		<script type="text/javascript" src="assets/js/jquery-2.2.0.min.js" ></script>
+		<script type="text/javascript" src="assets/jquery-ui-1.11.4/jquery-ui.min.js" ></script>
+		<link rel="stylesheet" href="assets/css/style.css">
+	</head>
+	<body>
+		<nav>
+			<h1>Вашата почивка при нас.</h1>
+			<div>Иберете вашата ваканция</div>
+		</nav>
+		<section>
+			<div id="date">
+				<p>Изберете дата на вашата ваканция</p> 
+				<input type="text" id="datepicker">
+			</div>
+		</section>
+		<section id="destination">
+		<p>Изберете дестинация</p>
+		<div>
+			<div id="draggable0" class="drag">
+				Варна
+			</div>
+			<div id="draggable1" class="drag">
+				Златни пясъци
+			</div>
+			<div id="draggable2" class="drag">
+				Слънчев бряг
+			</div>
+			<div id="draggable3" class="drag">
+				Лозенец
+			</div>
+			<div id="draggable4" class="drag">
+				Св.Влас
+			</div>
+			<div id="draggable5" class="drag">
+				Бургас
+			</div>
+			<div id="draggable6" class="drag">
+				Боровец
+			</div>
+			<div id="draggable7" class="drag">
+				Банско
+			</div>
+			<div id="draggable8" class="drag">
+				Пампорово
+			</div>
+			<div id="draggable9" class="drag">
+				Рибарица
+			</div>
+		</div>
+		</section>
+		<section>
+			<p>Поставете избраните дестинации</p>
+			<div id="droppable" class="ui-widget-content">
+				
+			</div>
+		</section>
+		<section id="confirm">
+			<p>Потвърдете вашата резервация</p>
+			<div>
+				<button id="button" class="ui-state-default ui-corner-all">Потвърждавам</button>
+			</div>
+		</section>
+		<section id="dialog" title="Вашата почивка е потвърдена">
+			
+		</section>
+		
+	</body>
+	<script>
+		 {
+			var array = [];
+			var data = document.getElementById('datepicker').value;
+			$( "#datepicker" ).datepicker();
+			
+			$( "#button" ).click(function() {
+				$( "#dialog" ).dialog( "open" );
+				var data = document.getElementById('datepicker').value;
+				var result = document.getElementById('dialog').innerHTML = '<div> Дати: '+ data + '</div>' + 
+								'<div>Дестинация: ' + array.join(); + '.';
+		
+			});
+			
+			$( "#dialog" ).dialog({
+				autoOpen: false,
+				width: '500px',
+				show: {
+					effect: "blind",
+					duration: 500
+				},
+				hide: {
+					effect: "blind",
+					duration: 500
+				}
+			});
+			
+			$( ".drag" ).draggable({
+				appendTo: "body",
+				helper: "clone"
+			});
+			
+			var num = 0;
+			$( "#droppable" ).droppable({
+				drop: function( event, ui ) {
+					$( this ).find( ".placeholder" ).remove();
+					if(num < 3){
+						
+						num++;
+						$( "<div></div>" ).text( ui.draggable.text() ).appendTo( this );
+						array.push(ui.draggable.text());
+					
+					}  
+				}
+			});	
+		}
+ 		 </script>
+</html>
